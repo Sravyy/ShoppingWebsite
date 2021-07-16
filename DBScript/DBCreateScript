@@ -1,0 +1,235 @@
+USE [ecommerce]
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET IDENTITY_CACHE = ON;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET LEGACY_CARDINALITY_ESTIMATION = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET MAXDOP = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET PARAMETER_SNIFFING = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET QUERY_OPTIMIZER_HOTFIXES = PRIMARY;
+GO
+USE [ecommerce]
+GO
+/****** Object:  Table [dbo].[Cart]    Script Date: 12-07-2021 08:02:13 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cart](
+	[CartId] [varchar](36) NOT NULL,
+	[UserID] [int] NOT NULL,
+	[DateCreated] [datetime] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[CartId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[CartItems]    Script Date: 12-07-2021 08:02:13 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[CartItems](
+	[CartItemId] [int] IDENTITY(1,1) NOT NULL,
+	[CartId] [varchar](36) NOT NULL,
+	[ProductId] [int] NOT NULL,
+	[Quantity] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[CartItemId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Categories]    Script Date: 12-07-2021 08:02:13 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Categories](
+	[CategoryID] [int] IDENTITY(1,1) NOT NULL,
+	[CategoryName] [varchar](20) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[CategoryID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[CustomerOrderDetails]    Script Date: 12-07-2021 08:02:13 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[CustomerOrderDetails](
+	[OrderDetailsId] [int] IDENTITY(1,1) NOT NULL,
+	[OrderId] [varchar](20) NOT NULL,
+	[ProductId] [int] NOT NULL,
+	[Quantity] [int] NOT NULL,
+	[Price] [decimal](10, 2) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[OrderDetailsId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[CustomerOrders]    Script Date: 12-07-2021 08:02:13 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[CustomerOrders](
+	[OrderId] [varchar](20) NOT NULL,
+	[UserID] [int] NOT NULL,
+	[DateCreated] [datetime] NOT NULL,
+	[CartTotal] [decimal](10, 2) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[OrderId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Product]    Script Date: 12-07-2021 08:02:13 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Product](
+	[ProductID] [int] IDENTITY(1,1) NOT NULL,
+	[Title] [varchar](100) NOT NULL,
+	[Description] [varchar](100) NOT NULL,
+	[Category] [varchar](20) NOT NULL,
+	[Price] [decimal](10, 2) NOT NULL,
+	[CoverFileName] [varchar](100) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[ProductID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[UserMaster]    Script Date: 12-07-2021 08:02:13 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[UserMaster](
+	[UserID] [int] IDENTITY(1,1) NOT NULL,
+	[FirstName] [varchar](20) NOT NULL,
+	[LastName] [varchar](20) NOT NULL,
+	[Username] [varchar](20) NOT NULL,
+	[Password] [varchar](40) NOT NULL,
+	[Gender] [varchar](6) NOT NULL,
+	[UserTypeID] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[UserID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[UserType]    Script Date: 12-07-2021 08:02:13 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[UserType](
+	[UserTypeID] [int] IDENTITY(1,1) NOT NULL,
+	[UserTypeName] [varchar](20) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[UserTypeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Wishlist]    Script Date: 12-07-2021 08:02:13 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Wishlist](
+	[WishlistId] [varchar](36) NOT NULL,
+	[UserID] [int] NOT NULL,
+	[DateCreated] [datetime] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[WishlistId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[WishlistItems]    Script Date: 12-07-2021 08:02:13 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[WishlistItems](
+	[WishlistItemId] [int] IDENTITY(1,1) NOT NULL,
+	[WishlistId] [varchar](36) NOT NULL,
+	[ProductId] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[WishlistItemId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+INSERT [dbo].[Cart] ([CartId], [UserID], [DateCreated]) VALUES (N'a74e5074-7007-4203-9334-a481cc315e2f', 1, CAST(N'2021-07-10T00:00:00.000' AS DateTime))
+GO
+SET IDENTITY_INSERT [dbo].[Categories] ON 
+GO
+INSERT [dbo].[Categories] ([CategoryID], [CategoryName]) VALUES (1, N'House holds')
+GO
+INSERT [dbo].[Categories] ([CategoryID], [CategoryName]) VALUES (2, N'Women Clothes')
+GO
+INSERT [dbo].[Categories] ([CategoryID], [CategoryName]) VALUES (3, N'Women Shoes')
+GO
+INSERT [dbo].[Categories] ([CategoryID], [CategoryName]) VALUES (4, N'Children')
+GO
+SET IDENTITY_INSERT [dbo].[Categories] OFF
+GO
+SET IDENTITY_INSERT [dbo].[CustomerOrderDetails] ON 
+GO
+INSERT [dbo].[CustomerOrderDetails] ([OrderDetailsId], [OrderId], [ProductId], [Quantity], [Price]) VALUES (1, N'265-897048', 1, 2, CAST(300.00 AS Decimal(10, 2)))
+GO
+SET IDENTITY_INSERT [dbo].[CustomerOrderDetails] OFF
+GO
+INSERT [dbo].[CustomerOrders] ([OrderId], [UserID], [DateCreated], [CartTotal]) VALUES (N'265-897048', 1, CAST(N'2021-07-12T00:00:00.000' AS DateTime), CAST(600.00 AS Decimal(10, 2)))
+GO
+SET IDENTITY_INSERT [dbo].[Product] ON 
+GO
+INSERT [dbo].[Product] ([ProductID], [Title], [Description], [Category], [Price], [CoverFileName]) VALUES (1, N'Hanging Garbage Bag ', N'Hanging Garbage Bag Storage', N'House holds', CAST(300.00 AS Decimal(10, 2)), N'fdd99cf5-c9d1-4ac6-878d-d7072a13f7170000135_hanging-garbage-bag-storage-bag_550.jpeg')
+GO
+INSERT [dbo].[Product] ([ProductID], [Title], [Description], [Category], [Price], [CoverFileName]) VALUES (2, N'1 Pc Turtle Shaped Random Colour Storage Rack', N'1 Pc Turtle Shaped Random Colour Storage Rack', N'House holds', CAST(2.99 AS Decimal(10, 2)), N'e8c2e53c-0ed2-4730-b9e6-d2cdefb91ec00000197_1-pc-turtle-shaped-random-colour-storage-rack_550.jpeg')
+GO
+INSERT [dbo].[Product] ([ProductID], [Title], [Description], [Category], [Price], [CoverFileName]) VALUES (3, N'Scarf Print Crepe Bell Sleeves Shift Dress', N'Scarf Print Crepe Bell Sleeves Shift Dress', N'Women Clothes', CAST(9.99 AS Decimal(10, 2)), N'3039b096-55cb-495e-aaa4-670ad85e1f3b0000202_scarf-print-crepe-bell-sleeves-shift-dress_550.jpeg')
+GO
+INSERT [dbo].[Product] ([ProductID], [Title], [Description], [Category], [Price], [CoverFileName]) VALUES (4, N'Active Crop Top & Vest Set', N'Active Crop Top & Vest Set', N'Women Clothes', CAST(12.00 AS Decimal(10, 2)), N'0bc5b476-703e-4dc2-a374-a3bed20317650000206_active-crop-top-vest-set_550.jpeg')
+GO
+SET IDENTITY_INSERT [dbo].[Product] OFF
+GO
+SET IDENTITY_INSERT [dbo].[UserMaster] ON 
+GO
+INSERT [dbo].[UserMaster] ([UserID], [FirstName], [LastName], [Username], [Password], [Gender], [UserTypeID]) VALUES (1, N'Sravy', N'Sravy', N'sravy', N'admin', N'Female', 1)
+GO
+SET IDENTITY_INSERT [dbo].[UserMaster] OFF
+GO
+SET IDENTITY_INSERT [dbo].[UserType] ON 
+GO
+INSERT [dbo].[UserType] ([UserTypeID], [UserTypeName]) VALUES (1, N'Admin')
+GO
+INSERT [dbo].[UserType] ([UserTypeID], [UserTypeName]) VALUES (2, N'User')
+GO
+SET IDENTITY_INSERT [dbo].[UserType] OFF
+GO
+INSERT [dbo].[Wishlist] ([WishlistId], [UserID], [DateCreated]) VALUES (N'5026c3e0-e2c5-4727-87c7-cdd779e4d58f', 1, CAST(N'2021-07-10T00:00:00.000' AS DateTime))
+GO
+USE [master]
+GO
+ALTER DATABASE [ecommerce] SET  READ_WRITE 
+GO
