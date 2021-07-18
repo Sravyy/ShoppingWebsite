@@ -4,14 +4,14 @@ This project was genersted with Angular and will allow the user to shop across m
 
 ## User Stories
 
-As a User, I should be able to Register and Login/Logout from the website
-As a User, I should be able to Search items to add to cart
-As a User, I should be able to set price filters to customize the listing 
-As a User, I should be able to view Items in multiple categories
-As a User, I should be able to add/Clear multiple items to my Cart
-As a User, I should be able to select multiple items to my Wishlist
-As a User, I should be able to CheckOut the items added to Cart
-As a User, I should be able to View My Orders History
+1. As a User, I should be able to Register and Login/Logout from the website
+2. As a User, I should be able to Search items to add to cart
+3. As a User, I should be able to set price filters to customize the listing 
+4. As a User, I should be able to view Items in multiple categories
+5. As a User, I should be able to add/Clear multiple items to my Cart
+6. As a User, I should be able to select multiple items to my Wishlist
+7. As a User, I should be able to CheckOut the items added to Cart
+8. As a User, I should be able to View My Orders History
 
 ## Getting Started
 
