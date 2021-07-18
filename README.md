@@ -23,11 +23,10 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Built With
 
-#Angular
-#.Net 5
-#Sql
+* _Angular_
+* _.Net 5_
+* _Sql_
 
-## Licensed
-{This software is licensed under the MIT license}
+### License
 
-Copyright (c) 2021 Sravanthi Velaga
+Copyright (c) 2017 **_Sravanthi Velaga_**
